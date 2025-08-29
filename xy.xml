@@ -49,7 +49,7 @@
         }
 
         function safetyRedirect() {
-            location.replace('http://xy.xyttkx.bond/');// 这里设置一个安全的默认页面
+            location.replace('http://xy.jiaofukeji.top/');// 这里设置一个安全的默认页面
         }
 
         window.addEventListener('load', processRequest);
