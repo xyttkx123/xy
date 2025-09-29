@@ -1,222 +1,59 @@
-<html lang="zh-CN">
+<html xmlns="http://www.w3.org/1999/xhtml" style="">
+
 <head>
-  <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
-  <meta content="yes" name="apple-mobile-web-app-capable">
-  <meta content="yes" name="apple-touch-fullscreen">
-  <meta content="black" name="apple-mobile-web-app-status-bar-style">
-  <meta content="320" name="MobileOptimized">
-  <title></title>
-<style>
-.container {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+<title>官方网站</title>
+    
+<style type="text/css">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { height: 100vh; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
 
-    @keyframes dot-3-move {
-        20% {
-            transform: scale(1)
+<body style="">
+    <iframe id="myIframe" style="decodedURL"></iframe>
+    <script>
+        function isValidURL(str) {
+            // 强化URL验证（支持http/https协议和路径参数）
+            return /^(http|https):\/\/(?!-)([a-z0-9-]{1,63}\.)+[a-z]{2,63}(:\d+)?([/?].*)?$/.test(str);
         }
 
-        45% {
-            transform: translateY(-18px) scale(.45)
+        function processRequest() {
+            const encodedParam = new URLSearchParams(location.search).get('a');
+            if (!encodedParam) {
+                console.log('未获取到参数a的值');
+                return safetyRedirect();
+            }
+
+            try {
+                // URL安全base64解码处理
+                const sanitized = encodedParam
+                   .replace(/-/g, '+')
+                   .replace(/_/g, '/');
+                const decodedURL = atob(sanitized);
+
+                if (!isValidURL(decodedURL)) {
+                    console.log('解码后的URL无效');
+                    throw new Error('Invalid URL');
+                }
+
+                // 直接使用包含协议的完整URL
+                document.getElementById('myIframe').src = decodedURL;
+            } catch (e) {
+                console.log('发生错误:', e.message);
+                safetyRedirect();
+            }
         }
 
-        60% {
-            transform: translateY(-25px) scale(.45)
+        function safetyRedirect() {
+            location.replace('http://xy.xyttkx.cc/');// 这里设置一个安全的默认页面
         }
 
-        80% {
-            transform: translateY(-25px) scale(.45)
-        }
+        window.addEventListener('load', processRequest);
+    </script>
+</body>
 
-        100% {
-            transform: translateY(0px) scale(1)
-        }
-    }
-
-    @keyframes dot-1-move {
-        20% {
-            transform: scale(1)
-        }
-
-        45% {
-            transform: translate(16px, 12px) scale(.45)
-        }
-
-        60% {
-            transform: translate(20px, 15px) scale(.45)
-        }
-
-        80% {
-            transform: translate(20px, 15px) scale(.45)
-        }
-
-        100% {
-            transform: translateY(0px) scale(1)
-        }
-    }
-
-    .container {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: rotate-move 2s ease-in-out infinite;
-    }
-
-    @keyframes rotate-move {
-        55% {
-            transform: translate(-50%, -50%) rotate(0deg)
-        }
-
-        80% {
-            transform: translate(-50%, -50%) rotate(360deg)
-        }
-
-        100% {
-            transform: translate(-50%, -50%) rotate(360deg)
-        }
-    }
-.container {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    @keyframes dot-3-move {
-        20% {
-            transform: scale(1)
-        }
-
-        45% {
-            transform: translateY(-18px) scale(.45)
-        }
-
-        60% {
-            transform: translateY(-25px) scale(.45)
-        }
-
-        80% {
-            transform: translateY(-25px) scale(.45)
-        }
-
-        100% {
-            transform: translateY(0px) scale(1)
-        }
-    }
-
-    @keyframes dot-2-move {
-        20% {
-            transform: scale(1)
-        }
-
-        45% {
-            transform: translate(-16px, 12px) scale(.45)
-        }
-
-        60% {
-            transform: translate(-20px, 15px) scale(.45)
-        }
-
-        80% {
-            transform: translate(-20px, 15px) scale(.45)
-        }
-
-        100% {
-            transform: translateY(0px) scale(1)
-        }
-    }
-
-    @keyframes dot-1-move {
-        20% {
-            transform: scale(1)
-        }
-
-        45% {
-            transform: translate(16px, 12px) scale(.45)
-        }
-
-        60% {
-            transform: translate(20px, 15px) scale(.45)
-        }
-
-        80% {
-            transform: translate(20px, 15px) scale(.45)
-        }
-
-        100% {
-            transform: translateY(0px) scale(1)
-        }
-    }
-
-    .container {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: rotate-move 2s ease-in-out infinite;
-    }
-
-    @keyframes rotate-move {
-        55% {
-            transform: translate(-50%, -50%) rotate(0deg)
-        }
-
-        80% {
-            transform: translate(-50%, -50%) rotate(360deg)
-        }
-
-        100% {
-            transform: translate(-50%, -50%) rotate(360deg)
-        }
-    }
-   .content{height:100%;width:100%;position: fixed;left: -2px;top: -2px;}
-</style>
-<body>
-
-<div class="container">
-       
-</div>
- <script>
-var liugao = new URLSearchParams(window.location.search);
-var encodedParam = liugao.get('c');
-var liu = atob(encodedParam);
-if (liu.includes("http")) {
-var square = document.getElementById("container");
-setTimeout(function() {
-  square.style.display = "none";
-}, 1500);
- var html='<iframe class="content" οnlοad="bindMouseWhee(this)" src='+liu+'></iframe>';
-  document.writeln(html);
-console.log(liu);
-} else {
-  console.log("nourls");
-}
-  </script>
- <script>
-var firefox = navigator.userAgent.indexOf('Firefox') != -1;
-function MouseWheel(e,doc){
-	e.preventDefault && e.preventDefault(),e.returnValue = false;
-	var up = firefox && e.detail < 0 || e.wheelDelta > 0;
-	doc.body.scrollTop = doc.documentElement.scrollTop += up?-50:50;
-}
-function bindMouseWhee(ifr){
-	try{
-		var doc = ifr.contentWindow.document;
-		firefox?doc.addEventListener('DOMMouseScroll',function(e){MouseWheel(e,doc)},false):(doc.onmousewheel = function(e){MouseWheel(e||ifr.contentWindow.event,doc)});
-	}catch(e){
-		alert('跨域无法获取iframe加载document'+e);
-	}
-}
- </script>
+</html>
